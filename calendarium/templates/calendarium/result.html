@@ -1,0 +1,75 @@
+{% extends 'calendarium/base.html' %}
+
+
+
+{% block body %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/profile.css' %}">
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-offset-md-2 toppad">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Results</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2" align="center">
+
+
+                        {% if identity_results %}
+                        <table class="table">
+
+                            {% for identity in identity_results %}
+                                <tr>
+                                    <td><a target="_blank" href="{{ identity.profile_picture.url }}"><img alt="User Pic" src="{{ identity.profile_picture.url }}" class="img-square" height="50px"></a></td>
+                                    <td><a href="{% url 'calendarium:profile' identity.id %}">{{ identity.First_Name }}&nbsp;{{ identity.Mid_Name }}&nbsp;{{ identity.Last_Name }}</a></td>
+                                    {% if user.is_staff %}
+                                    <td><a href="{% url 'bill:index' identity.id %}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"> generate bill <i class="glyphicon glyphicon-usd"></i></a></td>
+                                    <td><a href="{% url 'calendarium:generate_patient_rec' identity.id %}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"> view PDF <i class="glyphicon glyphicon-open-file"></i></a></td>
+                                    {% else %}
+                                    {% endif %}
+                                    <td>Active</td>
+                                    <td>User</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+
+                        {% elif service_results %}
+                        <table class="table">
+
+                            {% for service in service_results %}
+                                <tr>
+                                    <td><a target="_blank" href="{{ service.image.url }}"><img alt="User Pic" src="{{ service.image.url }}" class="img-square" height="50px"></a></td>
+
+                                    <td>{{ service.service_title }}</td>
+                                    <td>{{ service.service_type }}</td>
+                                    {% ifequal service.duration 30 %}
+                                        <td>{{ service.duration }}mins</td>
+                                    {% else %}
+                                        <td>{{ service.duration }}hrs</td>
+                                    {% endifequal %}
+                                    <td>{{ service.price }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                        {% else %}
+                        No results found.
+                        {% endif %}
+
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

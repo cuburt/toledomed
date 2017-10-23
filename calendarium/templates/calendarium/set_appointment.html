@@ -1,0 +1,53 @@
+{% extends 'calendarium/base.html' %}
+{% block title %}Set Appointment{% endblock %}
+{% block book_active %}active{% endblock %}
+
+
+{% block body %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/profile.css' %}">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-offset-md-2 toppad">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Set Appointment</h3>
+                </div>
+                 <div class="panel-body">
+                     <div class="col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2" align="center">
+
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'calendarium/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                    {% if error_message %}
+                    <div class="alert alert-danger">
+                    <strong>Error!</strong> {{ error_message }}.
+                    </div>
+
+                    {% endif %}
+                    {% if success_message %}
+                    <div class="alert alert-success">
+                    <strong>Success!</strong> {{ success_message }}.
+                    </div>
+
+                    {% endif %}
+                     </div>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

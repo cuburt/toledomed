@@ -1,0 +1,113 @@
+ul {list-style-type: none;}
+
+
+/* Month header */
+.month {
+    padding: 0px;
+    float: top;
+    margin: none;
+    height: 100px;
+    width: 100%;
+    background-color: #f0c75e;
+}
+
+/* Month list */
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+#month_name{
+    padding: 25px;
+    font-family: Verdana,sans-serif;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Previous button inside month header */
+#prev {
+
+    border: none;
+    background-color: #f0c75e;
+    float: left;
+    width: 150px;
+    height: 100px;
+}
+
+#next {
+
+    border: none;
+    background-color: #f0c75e;
+    float: right;
+    width: 150px;
+    height: 100px;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color:	#faebd7;
+}
+
+/* Days (1-31) */
+.days {
+    margin: 0;
+}
+
+#calendar{
+    margin-top:200px;
+
+
+}
+
+
+
+tr.weekdays{
+
+    font-family: Verdana,sans-serif;
+    font-size: 20px;
+    height: 70px;
+
+}
+
+tr.days{
+    font-family: Verdana,sans-serif;
+    height: 151px;
+}
+
+tr.days td{
+    padding:0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+td a {
+    display:block;
+}
+div.dialog{
+
+    border: 1px;
+    background-color: #b0e0e6;
+}
+
+div.modal-body {
+ font-size: 13px;
+
+
+}
+
+button.btn.btn-info.btn-xs{
+    font-size: 30px;
+    color: black;
+    height: 151px;
+    width: 151px;
+    background: transparent;
+    border:none;
+    text-align: right;
+}

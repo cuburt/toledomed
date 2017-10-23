@@ -1,0 +1,188 @@
+{% extends 'calendarium/base.html' %}
+{% block title %}{{ Profile }}{% endblock %}
+
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/profile.css' %}"/>
+
+
+<div class="container">
+    <div class="row">
+
+
+        <div    id="first-panel" class="col-lg-12 toppad" >
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ identity.First_Name }} {{ identity.Mid_Name }} {{ identity.Last_Name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+
+                        <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                          <dl>
+                            <dt>DEPARTMENT:</dt>
+                            <dd>Administrator</dd>
+                            <dt>HIRE DATE</dt>
+                            <dd>11/12/2013</dd>
+                            <dt>DATE OF BIRTH</dt>
+                               <dd>11/12/2013</dd>
+                            <dt>GENDER</dt>
+                            <dd>Male</dd>
+                          </dl>
+                        </div>-->
+
+
+                        <div class=" col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+                            {% if title == 'Patient Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for field in patient_history.patient_record_set.all %}
+                                    <tr>
+                                        <td><a href="{% url 'calendarium:view_patient_rec_details' identity.id patient_info.id assessment.id patient_history.id field.id %}">{{ field.Date }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                            {% elif title == 'Operations Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Room No</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for field in operational_record.ops_rec_set.all %}
+                                    <tr>
+                                        <td>{{ field.Ops_Rec_RoomNo }}</td>
+                                        <td><a href="{% url 'calendarium:view_operation_rec_details' identity.id patient_info.id assessment.id operation.id operational_record.id field.id%}">{{ field.OR_Date_of_Operation }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+
+
+                            {% elif title == 'Anesthesia Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Anesthesia</th>
+                                    <th>Other Intake</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for field in operational_record.treatment_set.all %}
+                                    <tr>
+                                        <td><a href="{% url 'calendarium:view_anesthesia_rec_details' identity.id patient_info.id assessment.id operation.id operational_record.id field.id%}">{{ field.AR_Date }}</a></td>
+                                        <td><a href="{% url 'calendarium:view_oi_rec_details' identity.id patient_info.id assessment.id operation.id operational_record.id field.id%}">{{ field.OI_Date }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+
+
+
+                            {% elif title == 'Nurse Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for field in operational_record.nurse_record_set.all %}
+                                    <tr>
+                                        <td><a href="{% url 'calendarium:view_nurse_rec_details' identity.id patient_info.id assessment.id operation.id operational_record.id field.id%}">{{ field.NR_Date }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+
+
+                            {% elif title == 'Lab Results' %}
+
+                            <table class="table table-user-information">
+
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Lab Type</th>
+                                    <th>Date</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for field in patient_history.lab_report_set.all %}
+                                    <tr>
+                                        <td>{{ field.Lab_TypeID }}</td>
+                                        <td><a href="{% url 'calendarium:view_lab_results_details' identity.id patient_info.id assessment.id patient_history.id field.id%}">{{ field.Date }}</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-print"></i></a>
+                    <span class="pull-right">
+                        {% if title == 'Operations Record' %}
+                        <a href="{% url 'calendarium:create_operation_rec' identity.id patient_info.id assessment.id operation.id operational_record.id%}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+                        {% elif title == 'Anesthesia Record' %}
+                        <a href="{% url 'calendarium:create_anesthesia_rec' identity.id patient_info.id assessment.id operation.id operational_record.id%}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+                        {% elif title == 'Nurse Record' %}
+                        <a href="{% url 'calendarium:create_nurse_rec' identity.id patient_info.id assessment.id operation.id operational_record.id%}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+                        {% elif title == 'Lab Results' %}
+                        <a href="{% url 'calendarium:create_lab_results' identity.id patient_info.id assessment.id patient_history.id%}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+                        {% endif %}
+
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

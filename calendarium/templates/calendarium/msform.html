@@ -1,0 +1,57 @@
+{% extends 'calendarium/base_visitor.html' %}
+{% block title %}Sign up{% endblock %}
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/msform.css' %}"/>
+
+
+
+<body>
+<!-- MultiStep Form -->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form id="msform" class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active">Personal Details</li>
+                <li>Account Setup</li>
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                <h2 class="fs-title">Personal Details</h2>
+                <h3 class="fs-subtitle">Tell us something more about you</h3>
+                {% for field in i_form %}
+                    <span class="text-danger small">{{ field.errors }}</span>
+                    <label class="control-label col-sm-2" >{{ field.label_tag }}</label>
+                    <div class="col-sm-10">{{ field }}</div>
+                {% endfor %}
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+
+            <fieldset>
+                <h2 class="fs-title">Create your account</h2>
+                <h3 class="fs-subtitle">Fill in your credentials</h3>
+                {% for field in form %}
+                    <div class="form-group">
+                    <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+                    <div class="col-sm-10">{{ field }}</div>
+                    </div>
+                {% endfor %}
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </fieldset>
+
+        </form>
+        <!-- link to designify.me code snippets -->
+        <div class="dme_link">
+            <p><a href="{% url 'calendarium:login_user' %}" >Already have an account?</a></p>
+        </div>
+        <!-- /.link to designify.me code snippets -->
+    </div>
+</div>
+<script src="{% static 'calendarium/js/msform.js' %}"></script>
+</body>
+<!-- /.MultiStep Form -->
+{% endblock %}

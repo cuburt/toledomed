@@ -1,0 +1,39 @@
+{% extends 'calendarium/base_visitor.html' %}
+{% block title %}Log In{% endblock %}
+{% block login_active %}active{% endblock %}
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/login.css' %}"/>
+
+
+<body>
+    <div id="login">
+        <h3>Log In</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+        <form class="form-horizontal" role="form" action="{% url 'calendarium:login_user'%}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="clearfix">
+
+                <p><span class="fontawesome-user"></span><input name="username" type="text" value="Username" onBlur="if(this.value == '') this.value = 'Username'" onFocus="if(this.value == 'Username') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                <p><span class="fontawesome-lock"></span><input name="password" type="password"  value="Password" onBlur="if(this.value == '') this.value = 'Password'" onFocus="if(this.value == 'Password') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+                <!--<p><button type="submit" class="btn btn-success">Login</button></p>-->
+                <p><input type="submit" value="Login"></p>
+            </fieldset>
+
+        </form>
+
+        <p>Not a member? <a href="{% url 'calendarium:sign_up' %}">Sign up now</a><span class="fontawesome-arrow-right"></span></p>
+
+    </div> <!-- end login -->
+
+
+</body>
+
+
+
+{% endblock %}
+

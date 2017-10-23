@@ -1,0 +1,333 @@
+
+{% load staticfiles %}
+<script src="{% static 'calendarium/js/calendar_msform.js' %}"></script>
+
+<form class="form" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <ul id="nav" class="nav nav-pills nav-justified thumbnail setup-panel">
+        <li class="active disabled"><a href="">
+            <h4 class="list-group-item-heading">Step 1</h4>
+            <p class="list-group-item-text">First step description</p>
+        </a></li>
+        <li class="disabled"><a href="">
+            <h4 class="list-group-item-heading">Step 2</h4>
+            <p class="list-group-item-text">Second step description</p>
+        </a></li>
+        <li class="disabled"><a href="">
+            <h4 class="list-group-item-heading">Step 3</h4>
+            <p class="list-group-item-text">Third step description</p>
+        </a></li>
+        <li class="disabled"><a href="">
+            <h4 class="list-group-item-heading">Step 4</h4>
+            <p class="list-group-item-text">Second step description</p>
+        </a></li>
+    </ul>
+
+
+
+    <fieldset id="step-1"  style="display: block">
+
+        <div style="display:block;
+         border-style:solid;
+         border-color:#aa9977;
+         border-radius: 5px;
+         box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+         padding: 5px">
+
+
+            {% for s in service_type %}
+            <div id="{{s.id}}" class="alert alert-default" style="padding: 2px">
+                <img src="{{ s.image.url }}" class="img-rounded" alt="Cinque Terre" width="75" height="50" style="margin-right: 50px">
+                <input class="step1" type="hidden" value="{{s.id}}">
+                {{ s.Type }}&nbsp;
+
+
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+
+        <!--<input id="toStep2" type="button" name="next" class="next action-button" value="Next"/>-->
+    </fieldset>
+
+
+    <fieldset id="step-2"  style="display: none">
+
+        <div style="display:block;
+        border-style:solid;
+        border-color:#aa9977;
+        border-radius: 5px;
+        box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+        padding: 5px">
+
+
+            {% for s in services %}
+            {% ifequal s.duration 30 %}
+            <div id="30{{s.id}}" class="alert alert-default 30" style="padding: 2px; display: none;">
+                <img src="{{ s.image.url }}" class="img-rounded" alt="Cinque Terre" width="75" height="50" style="margin-right: 50px">
+                <input class="step2" type="hidden" value="{{s.id}}">
+                {{ s.service_title }}&nbsp;
+                <label style="float: right; margin-right: 10px"><small>{{ s.duration }} mins</small></label>
+
+            </div>
+            {% endifequal %}
+            {% ifequal s.duration 1 %}
+            <div id="1{{s.id}}" class="alert alert-default 1" style="padding: 2px;display: none;">
+                <img src="{{ s.image.url }}" class="img-rounded" alt="Cinque Terre" width="75" height="50" style="margin-right: 50px">
+                <input class="step2" type="hidden" value="{{s.id}}">
+                {{ s.service_title }}&nbsp;
+                <label style="float: right; margin-right: 10px"><small>{{ s.duration }} hour</small></label>
+
+            </div>
+            {% endifequal %}
+            {% ifequal s.duration 2 %}
+            <div id="2{{s.id}}" class="alert alert-default 2" style="padding: 2px;display: none;">
+                <img src="{{ s.image.url }}" class="img-rounded" alt="Cinque Terre" width="75" height="50" style="margin-right: 50px">
+                <input class="step2" type="hidden" value="{{s.id}}">
+                {{ s.service_title }}&nbsp;
+                <label style="float: right; margin-right: 10px"><small>{{ s.duration }} hours</small></label>
+
+            </div>
+            {% endifequal %}
+            {% endfor %}
+
+
+        </div>
+
+        <!--<input id="backStep1" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+        <input id="toStep3" type="button" name="next" class="next action-button" value="Next"/>-->
+    </fieldset>
+
+
+    <fieldset id="step-3"  style="display: none">
+
+
+        <div class="30" style="display:none;
+         border-style:solid;
+         border-color:#aa9977;
+         border-radius: 5px;
+         box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);">
+
+
+            <div id="1" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="10:00">
+                10:00 - 10:30 am
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="2" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="10:30">
+                10:30 - 11:00 am
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="3"  class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="11:00">
+                11:00 - 11:30 am
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="4" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="11:30 ">
+                11:30 - 12:00 am
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="5"  class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="13:00">
+                1:00 - 1:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="6" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="13:30">
+                1:30 - 2:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="7" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="14:00 ">
+                2:00 - 2:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="8" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="14:30 ">
+                2:30 - 3:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="9" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="15:00">
+                3:00 - 3:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="10" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="15:30">
+                3:30 - 4:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="11" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="16:00">
+                4:00 - 4:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="12" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="16:30">
+                4:30 - 5:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="13" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="17:00">
+                5:00 - 5:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="14" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="17:30">
+                5:30 - 6:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="15" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="18:00">
+                6:00 - 6:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="16" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="18:30 ">
+                6:30 - 7:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="17" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="19:00">
+                7:00 - 7:30 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+            <div id="18" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="19:30">
+                7:30 - 8:00 pm
+                <label style="float: right; margin-right: 10px"><small>30 mins</small></label>
+            </div>
+
+
+
+        </div>
+        <div class="1" style="display:none;
+         border-style:solid;
+         border-color:#aa9977;
+         border-radius: 5px;
+         box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);">
+
+
+            <div id="1" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="10:00">
+                10:00 - 11:00 am
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="2" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="11:00">
+                11:00 - 12:00 am
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="3"  class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="13:00">
+                1:00 - 2:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="4" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="14:00 ">
+                2:00 - 3:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="5"  class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="15:00">
+                3:00 - 4:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="6" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="16:00">
+                4:00 - 5:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="7" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="17:00 ">
+                5:00 - 6:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="8" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="18:00 ">
+                6:00 - 7:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+            <div id="9" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="19:00">
+                7:00 - 8:00 pm
+                <label style="float: right; margin-right: 10px"><small>1 hour</small></label>
+            </div>
+
+
+        </div>
+        <div class="2" style="display:none;
+         border-style:solid;
+         border-color:#aa9977;
+         border-radius: 5px;
+         box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);">
+
+
+            <div id="1" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="10:00">
+                10:00 - 12:00 am
+                <label style="float: right; margin-right: 10px"><small>2 hours</small></label>
+            </div>
+            <div id="2" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="13:00">
+                1:00 - 3:00 pm
+                <label style="float: right; margin-right: 10px"><small>2 hours</small></label>
+            </div>
+            <div id="3"  class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="15:00">
+                3:00 - 5:00 pm
+                <label style="float: right; margin-right: 10px"><small>2 hours</small></label>
+            </div>
+            <div id="4" class="alert alert-default" style="padding: 5px">
+                <input type="hidden" value="17:00 ">
+                5:00 - 7:00 pm
+                <label style="float: right; margin-right: 10px"><small>2 hours</small></label>
+            </div>
+
+        </div>
+
+        <!--<input id="backStep2" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+        <input id="toStep4" type="button" name="next" class="next action-button" value="Next"/>-->
+    </fieldset>
+
+
+    <fieldset id="step-4"  style="display: none">
+        <div style="display:block;
+         border-style:solid;
+         border-color:#aa9977;
+         border-radius: 5px;
+         box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);">
+
+            <div class="panel-heading">
+                    <h3 class="panel-title">Set Appointment</h3>
+                </div>
+                <div class="panel-body">
+
+
+                        {% for field in form %}
+                        <div class="form-group">
+                        <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+                        <div class="col-sm-10">{{ field }}</div>
+                        </div>
+                        {% endfor %}
+
+
+
+                </div>
+
+        </div>
+        <input id="backStep3" type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+        <button type="submit" class="btn btn-success">Submit</button>
+
+
+    </fieldset>
+
+
+</form>
+
+
+

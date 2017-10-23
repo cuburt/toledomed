@@ -1,0 +1,60 @@
+
+
+{% with days|stringformat:"s" as days %}
+{% with "myModal"|add:days as variable %}
+
+    <td id="valid" class="success" align="left"  data-toggle="modal" data-target="#{{ variable }}">
+        {{ days }}
+        <ul id="events">
+        {% with index.month_index|stringformat:"s" as month %}
+                                                            {% with index.year_index|stringformat:"s" as year %}
+                                                            {% with year|add:"-"|add:month|add:"-"|add:days as date %}
+
+                                                            {% for info in schedules %}
+
+                                                            {% with info.Requested_Date|date:"Y-m-d" as iDate %}
+                                                            {% with iDate|stringformat:"s" as fDate %}
+                                                                {% ifequal fDate date %}
+                                                                {% ifequal info.user user %}
+                                                                    <li>
+                                                                        <div class="alert alert-warning" style="margin: 1px; padding: 3px; display: block;">
+                                                                            <small>{{ info.Requested_Time }}</small>
+                                                                        </div>
+                                                                    </li>
+                                                                {% else %}
+                                                                    <li>
+                                                                        <div class="alert alert-default" style="margin: 1px; padding: 3px; display: block;">
+                                                                            <small>{{ info.Requested_Time }}</small>
+                                                                        </div>
+                                                                    </li>
+                                                                {% endifequal %}
+                                                                {% else %}
+
+                                                                {% endifequal %}
+
+                                                            {% endwith %}
+                                                            {% endwith %}
+                                                            {% endfor %}
+                                                            {% endwith %}
+                                                            {% endwith %}
+                                                            {% endwith %}
+        </ul>
+
+    </td>
+        <div id="{{ variable }}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <input id="{{ days }}" type="hidden" value="{{ index.year_index }}-{{ index.month_index }}-{{ days }}">
+                        {% include 'calendarium/calendar_msform.html' %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endwith %}
+{% endwith %}
+
+

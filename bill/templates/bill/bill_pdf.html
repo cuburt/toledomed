@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ {% for details in profiles %}
+{% for data in bill_info %}
+<html>
+     <head>
+         <title>Bill</title>
+         <style type="text/css">
+             body {
+                 font-weight: 200;
+                 font-size: 14px;
+             }
+             .header {
+                 font-size: 20px;
+                 font-weight: 100;
+                 text-align: center;
+                 color: black;
+             }
+             .title {
+                 font-size: 22px;
+                 font-weight: 100;
+                /* text-align: right;*/
+                padding: 10px 20px 0px 20px;
+             }
+             .title span {
+                 color: #007cae;
+             }
+             .details {
+                 padding: 10px 20px 0px 20px;
+                 text-align: left !important;
+                 /*margin-left: 40%;*/
+             }
+             .hrItem {
+                 border: none;
+                 height: 1px;
+                 /* Set the hr color */
+                 color: #333; /* old IE */
+                 background-color: #fff; /* Modern Browsers */
+             }
+         </style>
+     </head>
+     <body>
+         <div class='wrapper'>
+             <div class='header'>
+                 <p class='title'><img src="http://www.toledomed.com.ph/wp-content/uploads/2016/12/logo-2017.png" alt=""></p>
+                 <p class='title'><i><b>OFFICIAL RECIEPT</b></i></p>
+             </div>
+         </div>
+
+         <div class='details'>
+             Recieved from: {{ details.First_Name }}&nbsp;{{ details.Mid_Name }}&nbsp;{{ details.Last_Name }} <br/>
+             Address: {{ details.Home_Address }}<br/>
+             the sum of pesos: {{ data.sum_in_words }}<br/>
+             {% if data.is_full %}
+             Full payment for services
+             {% else %}
+             Partial payment of services
+             {% endif %}
+             <hr style="margin-bottom: 1px;"/>
+             <hr style="margin-top: 1px;"/>
+
+         </div>
+     <table>
+         <thead>
+         <tr align="center"><th>In settlement of the following:</th></tr>
+         <tr>
+             <th align="center" style="border: solid; border-width: 1px;">Invoice No.</th>
+             <th align="center" style="border: solid; border-width: 1px;">Amount</th>
+
+         </tr>
+         </thead>
+         <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total Sales(VAT Inclusive)</td>
+                <td>{{ data.total_sales_vat_inclusive }}</td>
+            </tr>
+            <tr>
+                <td>Less: VAT</td>
+                <td>{{ data.less_vat }}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>{{ data.total }}</td>
+            </tr>
+            <tr>
+                <td>Less:SC/PWD Discount</td>
+                <td>{{ data.less_sc_pwd_disc }}</td>
+            </tr>
+            <tr>
+                <td>Total Due</td>
+                <td></td>
+            </tr>
+         <tr>
+                <td>Less: Withholding Tax</td>
+                <td>{{ data.less_withholding_tax }}</td>
+            </tr>
+            <tr>
+                <td>Amount Due</td>
+                <td>{{ data.amount_due }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>VATable Sales</td>
+                <td>{{ data.vatable_sales }}</td>
+            </tr>
+            <tr>
+                <td>VAT-Exempt Sales</td>
+                <td>{{ data.vat_exempt_sales }}</td>
+            </tr>
+            <tr>
+                <td>VAT Zero Rated Sales</td>
+                <td>{{ data.vat_zero_rated_sales }}</td>
+            </tr>
+            <tr>
+                <td>VAT-Amount</td>
+                <td>{{ data.vat_amount }}</td>
+            </tr>
+            <tr>
+                <td>Total Sales</td>
+                <td>{{ data.total_sales }}</td>
+            </tr>
+         </tbody>
+
+     </table>
+    <table>
+        <tr><td>Sr Citizen TIN:</td><td></td></tr>
+        <tr><td>OSCA/PWD ID No.</td><td></td></tr>
+        <tr><td>Signature</td><td></td></tr>
+    </table>
+
+     <p>By: ____________________________</p><br>
+     <p><small>Cashier/ Authorized Representative</small></p>
+
+      <blockquote class="blockquote">
+            &ldquo; THIS OFFICIAL RECIEPT SHALL BE VALID FOR FIVE YEARS FROM THE DATE OF ATP&rdquo;
+          </blockquote>
+
+     </body>
+ </html>
+{% endfor %}
+{% endfor %}

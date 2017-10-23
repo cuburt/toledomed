@@ -1,0 +1,245 @@
+{% extends 'calendarium/base.html' %}
+{% block title %}{{ Profile }}{% endblock %}
+
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/profile.css' %}"/>
+
+
+<div class="container">
+    <div class="row">
+
+
+        <div    id="first-panel" class="col-lg-12 toppad" >
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ identity.First_Name }} {{ identity.Mid_Name }} {{ identity.Last_Name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+
+                        <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                          <dl>
+                            <dt>DEPARTMENT:</dt>
+                            <dd>Administrator</dd>
+                            <dt>HIRE DATE</dt>
+                            <dd>11/12/2013</dd>
+                            <dt>DATE OF BIRTH</dt>
+                               <dd>11/12/2013</dd>
+                            <dt>GENDER</dt>
+                            <dd>Male</dd>
+                          </dl>
+                        </div>-->
+                        <div class=" col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+                            {% if title == 'Patient History' %}
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <tr>
+                                        <td>Physician Examination:</td>
+                                        <td>{{ details.Physician_Exam }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chief Complaint:</td>
+                                        <td>{{ details.Chief_Complaint }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>History of present illness:</td>
+                                        <td>{{ details.History_of_present_illness }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Attending Physician:</td>
+                                        <td>{{ details.Attending_Physician }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                                    {% elif title == 'Operations Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>Remarks: </td>
+                                        <td>{{details.Operation_Room_Rec}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date: </td>
+                                        <td>{{details.OR_Date_of_Operation}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Room No: </td>
+                                        <td>{{details.Ops_Rec_RoomNo}}</td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            {% elif title == 'Patient Record' %}
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Assessment</th>
+                                    <th>Treatment</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>{{ details.Date }}</td>
+                                        <td>{{ details.Assessment }}</td>
+                                        <td>{{ details.Treatment }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            {% elif title == 'Anesthesia Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>Anesthesia Remarks:</td>
+                                        <td>{{details.Anesthesia_Record}}</td>
+                                        <td>Date: </td>
+                                        <td>{{details.AR_Date}}</td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+                            {% elif title == 'Other Intake Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Other Intake: </td>
+                                    <td>{{ details.Other_Intake }}</td>
+                                    <td>Date: </td>
+                                    <td>{{ details.OI_Date }}</td>
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+
+                            {% elif title == 'Nurse Record' %}
+
+                            <table class="table table-user-information">
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>Remarks: </td>
+                                        <td>{{ details.Nursing_Record }}</td>
+                                    </tr>
+                                <tr>
+                                    <td>Date:</td>
+                                    <td>{{ details.NR_Date }}</td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+                            {% elif title == 'Lab Results' %}
+
+                            <table class="table table-user-information">
+
+                                <thead>
+                                <tr>
+                                    <th>{{ title }}</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>Laboratory Type: </td>
+                                        <td>{{ details.Lab_TypeID }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Laboratory Report: </td>
+                                        <td>{{ details.LabReport }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date: </td>
+                                        <td>{{ details.Date }}</td>
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+                            {% else %}
+                            {% endif %}
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-print"></i></a>
+                    <span class="pull-right">
+                        {% if patient_info.patient_history_set.count == 0 %}
+                        <a href="{% url 'calendarium:create_patient_info' identity.id %}" data-original-title="Add more info" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+                        {% else %}
+                        {% endif %}
+
+
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

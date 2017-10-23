@@ -1,0 +1,117 @@
+{% extends 'calendarium/base.html' %}
+{% block book_active %}active{% endblock %}
+
+{% block body %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendarium/calendar.css' %}">
+<script src="{% static 'calendarium/js/calendar.js' %}"></script>
+
+
+
+
+                    <div id="calendar" class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        {% for identity in profiles %}
+                        <ul id="month">
+                            {% for month in months.currentMonth %}
+                            <li>
+                                <a style="float:left" href="{% url 'calendarium:prev_month' identity.id index.year_index index.month_index %}" data-original-title="Prev" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                            </li>
+                            <li>
+                                <a style="float:right" href="{% url 'calendarium:next_month' identity.id index.year_index index.month_index %}" data-original-title="Next" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-chevron-right"></i></a>
+
+                            </li>
+                            <li id="month_name" style="text-align:center">
+                                {{ month }}<br><span style="font-size:18px">{{ index.year_index }}</span></li>
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
+
+
+
+
+                        <div class="table-responsive">
+                            <table class="table col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <thead>
+                                <tr class="weekdays" align="center"><td width="100px">Su</td><td width="100px">Mo</td><td width="100px">Tu</td><td width="100px">We</td><td width="100px">Th</td><td width="100px">Fr</td><td width="100px">Sa</td></tr>
+                                </thead>
+                                <tbody>
+                                {% for days in dates_per_month.currentMonth %}
+                                    {% cycle '<tr class="days" align="center">' '' '' '' '' '' ''%}
+                                        {% if days != '00' %}
+
+                                            {% if days == today and index.month_index == this_month and index.year_index == this_year %}
+                                                {% include 'calendarium/calendar_modal.html' %}
+                                            {% else %}
+                                                {% with days|stringformat:"s" as days %}
+                                                {% with "myModal"|add:days as variable %}
+
+                                                    <td id="valid" align="left"  data-toggle="modal" data-target="#{{ variable }}">
+                                                        {{ days }}
+                                                        <ul id="events">
+                                                            {% with index.month_index|stringformat:"s" as month %}
+                                                            {% with index.year_index|stringformat:"s" as year %}
+                                                            {% with year|add:"-"|add:month|add:"-"|add:days as date %}
+
+                                                            {% for info in schedules %}
+
+                                                            {% with info.Requested_Date|date:"Y-m-d" as iDate %}
+                                                            {% with iDate|stringformat:"s" as fDate %}
+                                                                {% ifequal fDate date %}
+                                                                {% ifequal info.user user %}
+                                                                    <li>
+                                                                        <div class="alert alert-warning" style="margin: 1px; padding: 3px; display: block;">
+                                                                            <small>{{ info.Requested_Time }}</small>
+                                                                        </div>
+                                                                    </li>
+                                                                {% else %}
+                                                                    <li>
+                                                                        <div class="alert alert-default" style="margin: 1px; padding: 3px; display: block;">
+                                                                            <small>{{ info.Requested_Time }}</small>
+                                                                        </div>
+                                                                    </li>
+                                                                {% endifequal %}
+                                                                {% else %}
+
+                                                                {% endifequal %}
+
+                                                            {% endwith %}
+                                                            {% endwith %}
+                                                            {% endfor %}
+                                                            {% endwith %}
+                                                            {% endwith %}
+                                                            {% endwith %}
+
+                                                        </ul>
+                                                    </td>
+                                                        <div id="{{ variable }}" class="modal fade" role="dialog">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+
+                                                                    <div class="modal-body">
+                                                                        <input id="{{ days }}" type="hidden" value="{{ index.year_index }}-{{ index.month_index }}-{{ days }}">
+                                                                        {% include 'calendarium/calendar_msform.html' %}
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                {% endwith %}
+                                                {% endwith %}
+                                            {% endif %}
+                                        {% else %}
+                                            <td> </td>
+                                        {% endif %}
+                                    {% cycle '' '' '' '' '' '' '<tr>' %}
+                                {% endfor%}
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+{% endblock %}

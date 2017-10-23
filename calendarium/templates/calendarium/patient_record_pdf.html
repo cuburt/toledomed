@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ {% for details in profiles %}
+<html>
+     <head>
+         <title>{{ details.First_Name }}&nbsp;{{ details.Mid_Name }}&nbsp;{{ details.Last_Name }}</title>
+         <style type="text/css">
+             body {
+                 font-weight: 200;
+                 font-size: 14px;
+             }
+             .header {
+                 font-size: 20px;
+                 font-weight: 100;
+                 text-align: center;
+                 color: black;
+             }
+             .title {
+                 font-size: 22px;
+                 font-weight: 100;
+                /* text-align: right;*/
+                padding: 10px 20px 0px 20px;
+             }
+             .title span {
+                 color: #007cae;
+             }
+             .details {
+                 padding: 10px 20px 0px 20px;
+                 text-align: left !important;
+                 /*margin-left: 40%;*/
+             }
+             .hrItem {
+                 border: none;
+                 height: 1px;
+                 /* Set the hr color */
+                 color: #333; /* old IE */
+                 background-color: #fff; /* Modern Browsers */
+             }
+         </style>
+     </head>
+     <body>
+         <div class='wrapper'>
+             <div class='header'>
+                 <p class='title'><img src="http://www.toledomed.com.ph/wp-content/uploads/2016/12/logo-2017.png" alt=""></p>
+                 <p class='title'><i><b>PATIENT RECORD</b></i></p>
+             </div>
+         </div>
+
+         <div class='details'>
+             Patient Name: {{ details.First_Name }}&nbsp;{{ details.Mid_Name }}&nbsp;{{ details.Last_Name }} <br/>
+             Home Address: {{ details.Home_Address }}<br/>
+             Office Address: {{ details.Office_Address }}<br/>
+             Occupation: {{ details.Occupation }}
+             Sex: {{ details.SexID }}
+             Religion: {{ details.ReligionID }}
+
+             <hr style="margin-bottom: 1px;"/>
+             <hr style="margin-top: 1px;"/>
+         </div>
+     <table>
+         <thead>
+         <tr>
+             <th align="center" style="border: solid; border-width: 1px;">Date</th>
+             <th align="center" style="border: solid; border-width: 1px;">Assessment</th>
+             <th align="center" style="border: solid; border-width: 1px;">Treatment/Medicine</th>
+         </tr>
+         </thead>
+         <tbody>
+
+         {% for field in patient_history.patient_record_set.all %}
+         <tr>
+             <td>{{ field.Date }}</td>
+             <td>{{ field.Assessment }}</td>
+             <td>{{ field.Treatment }}</td>
+         </tr>
+         {% endfor %}
+
+         </tbody>
+
+     </table>
+
+     </body>
+ </html>
+{% endfor %}
